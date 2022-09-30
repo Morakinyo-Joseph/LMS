@@ -10,7 +10,9 @@ An effective tool to assist a Librarian in his/her day-to-day activites which in
   <li>And so much more</li>
 </ul>
 
-<h2>How to view app</h2>
+<h2>final Deployed code</h2>
+
+Check http://libmsys.herokuapp.com/ to see finished project
 
 
 
