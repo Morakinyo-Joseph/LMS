@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .text{
+        margin-left: 10px;
+    }
+    .borrowed-book{
+        position: relative;
+        /* border: 1px solid black; */
+        top: 20px
+    }
+    .borrowed-book button{
+        position: relative;
+        /* margin-top: 10px; */
+        margin-left: 26px;
+    }
+    .borrowed-book li{
+        /* border: 1px solid black; */
+        margin-top: 10px;
+    }
+    .member{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .action-buttons{
+        display: flex;
+    }
+    .action-buttons input{
+        margin-left: 20px;
+    }
+</style>
+
+
+<hr>
+
+
+    {% for message in messages %}
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div class="text">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+
+<div class="member">
+    <h2 class="display-5">Member: {{ member.name }}</h2>
+    <br>
+
+
+    <h4>Email: {{ member.email }}</h4>
+    <h4>Number: {{ member.phone_number }}</h4>
+    <h4>Address: {{ member.home_address }}</h4>
+    <h4>Registration Date: {{ member.date_joined }}</h4>
+    <hr>
+
+    <div class="action-buttons">
+        <a href="{% url 'core:book_borrow' member.id %}"><button class="btn btn-primary">Borrow a Book</button></a>
+
+        {% if member.borrowed_book_name.exists %}
+            <input type="button", value="Remove member" class="btn btn-secondary">
+        {% else %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="submit", value="Remove member" class="btn btn-success" name="remove">
+            </form>
+        {% endif %}
+    </div>
+
+
+    <!-- list of borrowed books -->
+    <div class="borrowed-book">
+        <div class="card" style="width: 30rem;">
+            <div class="card-header">
+                Borrowed Books
+            </div>
+            <ul>
+                <form method="post" class="borrow-form">
+                    {% csrf_token %}
+
+                    {% for book in book %}
+                        <li>{{ book.book }}: {{ book.book_serial }}
+                            <button class="btn btn-primary btn-sm", name="returnBook", value="returnBook">
+                                Return Book
+                            </button>
+                        </li>
+                    {% endfor %}
+                </form>
+            </ul>
+        </div>
+    </div>
+
+    <hr>
+
+
+
+</div>
+
+{% endblock content %}

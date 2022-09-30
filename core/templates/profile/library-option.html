@@ -1,0 +1,23 @@
+{% extends 'profile/dashboard.html' %}
+
+{% block content2 %}
+
+<style type="text/css">
+ 
+</style>
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <h1>Are you sure you want to delete library?</h1>
+    <hr>
+
+    <input type="submit" value="Sure" class="btn btn-success", name="Sure">
+
+    <a href="{% url 'core:profile' %}">
+        <input type="button" class="btn btn-danger" value="Nope">
+    </a>
+</form>
+
+{% endblock content2 %}

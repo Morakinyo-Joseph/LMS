@@ -1,0 +1,27 @@
+{% extends 'profile/dashboard.html' %}
+
+{% block content2 %}
+
+<style type="text/css">
+    .amount{
+        font-size: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+    <h1>Current Members</h1>
+
+    <div class="amount">
+        {{ member_counter }}
+    </div>
+    
+    <br>
+
+    <h1>Owing Members</h1>
+    <div class="amount">  
+        {{ borrowed }}
+    </div>
+
+{% endblock content2 %}

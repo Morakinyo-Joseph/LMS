@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .tc{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+
+
+<div class="tc">
+    <h1>Terms & Conditions</h1>
+    <br>    
+    <h3>Nothing really, just have fun</h3>
+    <br>
+    <a href="{% url 'account:signup' %}"><button class="btn btn-primary">Back to signup</button></a>
+</div>
+
+{% endblock content %}

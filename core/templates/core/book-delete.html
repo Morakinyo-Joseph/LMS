@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .delete-btn button{
+        margin-right: 20px;
+    }
+    .alert{
+        height: 40px;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .alert svg{
+        margin-left: 28%;
+    }
+    .text{
+        margin-left: 10px;
+    }
+</style>
+
+<div class="delete-confirmation">
+    {% if optional > 0 %}
+        <h2>Deleting "{{ book.title }}" will also remove all copies</h2>
+        <hr>
+        
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div class="text">
+                A copy of this book has being borrowed so it can't be deleted
+            </div>
+        </div>
+    {% else %}
+        <h2>Deleting "{{ book.title }}" will also remove all copies</h2>
+        <hr>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="delete-btn">
+                <button class="btn btn-success", name="confirmDelete", value="confirmDelete">Confirm</button>
+                <a href="{% url 'core:book_detail' book.id %}"><input type="button" class="btn btn-danger", value="Decline"></a>
+            </div>    
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .alert svg{
+        margin-left: 40%;
+    }
+    .text{
+        margin-left: 10px;
+    }
+</style>
+
+<div class="col-12">
+    <br> <h2>Add a new member</h2> <hr>
+
+    {% for message in messages %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div class="text">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <form method="post", enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <br>
+        
+        <div class="d-grid gap-2">
+            <input type="submit", value="Create", class="btn btn-success">
+        </div>
+    </form>
+
+</div>
+
+
+
+{% endblock content %}

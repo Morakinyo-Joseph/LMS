@@ -1,0 +1,27 @@
+{% extends 'profile/dashboard.html' %}
+
+{% block content2 %}
+
+<style type="text/css">
+      .amount{
+        font-size: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+    <h1>Available Books</h1>
+
+    <div class="amount">
+        {{ book_counter }}
+    </div>
+    
+    <br>
+
+    <h1>Borrowed Books</h1>
+    <div class="amount">  
+        {{ borrowed_book }}
+    </div>
+
+{% endblock content2 %}

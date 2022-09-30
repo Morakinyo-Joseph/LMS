@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+
+    .create-btn{
+        top: 20%;
+        margin-bottom: 20px;
+    }
+    .create-btn a{
+        text-decoration: none;
+    }
+    h1{
+        padding-bottom: -5%;
+    }
+    .member a{
+        text-decoration: none;
+        color: black;
+        position: relative;
+    }
+    .member a::after{
+        content: '';
+        width: 0;
+        height: 3px;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: green;
+        transition: width 0.3s;
+    }
+    .member a:hover::after{
+        width: 100px;
+    }
+    .alert{
+        height: 40px;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .alert svg{
+        margin-left: 40%;
+    }
+    .text{
+        margin-left: 10px;
+    }
+</style>
+
+<h1>Membership List</h1>
+<hr>
+
+
+{% for message in messages %}
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+    <div class="text">
+        {{ message }}   
+    </div>
+  </div>
+{% endfor %}
+
+
+<div class="create-btn">
+    <a href="{% url 'core:member_create' %}">
+        <div class="d-grid gap-2">
+            <button class="btn btn-success">
+                Add a Person
+            </button>
+        </div>
+    </a>
+</div>
+
+<table class="table table-hover">
+
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Borrowed Books</th>
+    </tr>
+
+    {% for member in member %}
+        {% if member.library_name.owner == request.user %}
+            <tr> 
+                <td class="member"><a href="{% url 'core:member_detail' member.id %}">{{ member.name }}</a></td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.phone_number}}</td>
+                <td>{{ member.home_address }}</td>
+
+                {% if member.borrowed_book_name.exists %}
+                    <td>Yes</td>
+                {% else %}
+                    <td>No</td>
+                {% endif %} 
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+
+{% endblock content %}

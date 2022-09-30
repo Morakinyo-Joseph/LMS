@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .notification li{
+        list-style: none;
+    }
+    .notification-head{
+        font-size: 20px;
+        text-decoration: underline;
+    }
+</style>
+
+    <h1>Notifications</h1>
+    <hr>
+
+    <div class="notification">
+        {% for note in notify reversed%}
+        <ul>
+            {% if note.library_name.owner == request.user %}
+                <li>
+                    <div class="notification-head">
+                        {{ note.heading }}
+                    </div>
+
+                    {% if note.heading == "Book Borrowing" %}
+                        <a href="{% url 'core:member_detail' note.library_name.owner.id %}" style="color: black; text-decoration: none;">{{ note.message }}</a>
+                    {% else %}
+                        {{ note.message }}
+                    {% endif %}
+                    <br>
+                    {{ note.date_created }}
+                    <hr>
+                </li>
+            {% endif %}     
+        </ul>
+        {% endfor %}
+    </div>
+
+
+{% endblock content %}

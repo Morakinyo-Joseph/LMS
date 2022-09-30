@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+        width: 50%;
+    }
+    .alert svg{
+        width: 20px;
+        margin-left: 30%;
+    }
+    .text{
+        margin-left: 10px;
+    }
+    .login-form{
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+    .login-form input{
+        width: 400px;
+    }
+    .form-center{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+</style>
+
+
+<h1 style="text-align: center;">Login your account</h1>
+<hr>
+
+{% for message in messages %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div class="text">
+            {{ message }}
+        </div>
+    </div>
+{% endfor %}
+
+
+<div class="login-form m-auto">
+
+    <form class="form-center" action="", method="post">
+        {% csrf_token %}
+        
+        <input type="email", class="textinput textInput form-control" placeholder="Email Address", name="email">
+        <br>
+        <input type="password", class="textinput textInput form-control" placeholder="Password", name="password">
+        <br>
+        
+        <p>Don't have an account? <a href="{% url 'account:signup' %}">click here</a></p>
+        
+        <input type="submit", value="Login", class="w-50 btn btn-primary">
+    </form>
+
+</div>
+
+{% endblock content %}

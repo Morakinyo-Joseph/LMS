@@ -1,0 +1,62 @@
+{% load static %}
+<!-- This is the navbar file     -->
+
+
+<style type="text/css">
+  .buttons{
+    display: flex;
+    justify-content: space-between;
+   }
+   .links{
+    padding-top: 13px;
+   }
+   .links a{
+    margin-left: 30px;
+    text-decoration: none;
+    color: rgb(103, 106, 109);
+    position: relative;
+   }
+    .links a::after{
+    content: '';
+    width: 0;
+    height: 3px;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgb(214, 137, 114);
+    transition: width 0.4s;
+  }
+  .links a:hover::after{
+    width: 30px;
+  }
+  .logo lin{
+
+  }
+</style>
+
+
+<div class="buttons">
+
+  <div class="logo">
+    {% if request.user.is_anonymous %}
+      <h6 class="display-6">Library|Management</h6>
+    {% else %}
+      <h6 class="display-6">Library| <lin>{{ request.user.library }}</lin>  </h6>
+    {% endif %}
+  </div>
+
+  <div class="links">
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'core:member_list' %}">Member</a>
+      <a href="{% url 'core:book_list' %}">Book</a>
+      <a href="{% url 'core:notification' %}">Notification</a>
+      <a href="{% url 'core:profile' %}">profile</a>
+    {% else %}
+      <a href="{% url 'account:login' %}">Login</a>
+      <a href="{% url 'account:signup' %}">Signup</a>
+    {% endif %}
+  </div>
+</div>
+
+<br>

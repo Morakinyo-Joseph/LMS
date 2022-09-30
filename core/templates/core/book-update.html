@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+    }
+    .alert svg{
+        width: 20px;
+    }
+
+    {% if optional > 0 %}
+        .alert svg{
+            margin-left: 28%;
+        }
+    {% else %}
+        .alert svg{
+            margin-left: 40%;
+        }
+    {% endif %}
+    
+    .text{
+        margin-left: 10px;
+    }
+</style>
+
+<div class="col-12">
+    <br>
+    <h2>Update Book</h2>
+    <hr>
+
+    {% if optional > 0 %}
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div class="text">
+            A copy of this book has being borrowed so it can't be updated
+        </div>
+    </div>
+    {% else %}
+        {% for message in messages %}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div class="text">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+
+
+        <form method="post", enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ book_form | crispy }}
+            <br>
+
+            <div class="copies">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="keep_changes">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Do you want to keep these copies?</label>
+                </div>
+                <hr>
+
+                <ul>    
+                    {% for book_amount in book_amount_list %}
+                        <li>Book: {{ book_amount }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <hr>
+            <div class="d-grid gap-2">
+                <input class="btn btn-primary" type="submit", value="Upload", name="done">
+            </div>
+        </form>
+    {% endif %}
+</div>
+
+{% endblock content %}

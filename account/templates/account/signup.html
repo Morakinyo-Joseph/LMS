@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style type="text/css">
+   .alert{
+        height: 40px;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .text{
+<!--        margin-left: 10px;-->
+    }
+    .signup-form input{
+        width: 450px;
+    }
+    .form-center{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        }
+</style>
+
+<h1 style="text-align: center;">Create an account</h1>
+<hr>
+
+{% for message in messages %}
+<div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div class="text">
+            {{ message }}
+        </div>
+</div>
+{% endfor %}
+
+
+<!--<div class="alert alert-danger d-flex align-items-center" role="alert">-->
+<!--    <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>-->
+<!--    <div class="text">-->
+<!--        Password do not match!-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="signup-form">
+    <form class="form-center" action="", method="post">
+        {% csrf_token %}
+        
+       <!-- <label for="library_name">Library Name</label> -->
+        <input type="text", name="library_name", class="textinput textInput form-control" placeholder="Library Name">
+        {{ form | crispy }}
+    
+        <br>
+        <div class="toggle-btn">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" name="accept_condition">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Toggle to accept <a href="{% url 'account:t&c' %}">terms and conditions</a></label>
+            </div>
+        </div>
+        
+        <br>
+        <input type="submit", name="submit", value="submit" class="btn btn-primary">
+    </form>
+</div>
+
+{% endblock content %}

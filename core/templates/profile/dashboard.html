@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style type="text/css">
+    .profile{
+        display: flex;
+        /* border: 1px solid black; */
+    }
+    .content2{
+        margin-left: 100px;
+    }    .alert{
+        height: 40px;
+    }
+</style>
+
+<h1>Profile</h1>
+<hr>
+
+<div class="profile">
+    {% include 'profile/sidebar.html' %}
+
+    <div class="content2">
+        {% block content2 %}
+
+        <h1>Welcome to your profile</h1>
+        <hr>
+        <h2> <span>&#x27f5</span>Head over to the sidebars</h2>
+
+        {% endblock content2 %}
+    </div>
+</div>
+
+{% endblock content %}

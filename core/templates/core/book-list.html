@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .alert svg{
+        margin-left: 40%;
+    }
+    .text{
+        margin-left: 10px;
+    }
+</style>
+
+
+
+    <h1>List of books</h1>
+    <hr><br><br>
+
+    {% for message in messages %}
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            <div class="text">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="create-btn">
+        <a href="{% url 'core:book_create' %}">
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary">
+                    Create a new book
+                </button>
+            </div>
+        </a>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        {% for book in book %}
+
+            {% if book.library_name.owner == request.user %}
+
+                <a href="{% url 'core:book_detail' book.id %}", style="text-decoration: none; color: black;">
+                    <div class="col">
+                        <div class="card h-100" style="width: 200px;">
+                            <img src="{{ book.cover.url }}", class="card-img-top" alt="..." height="250px" width="200px">
+                            
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.title }}</h5>
+                                <p class="card-text">Location: {{ book.location }}</p>
+                            </div>
+
+                            <!-- <div class="card-footer">
+                                <small class="text-muted">last borrowed: </small>
+                            </div> -->
+                        </div>
+                    </div>
+                </a>
+                
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+{% endblock content %}

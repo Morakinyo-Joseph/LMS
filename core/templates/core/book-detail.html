@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style type="text/css">
+    .book-detail{
+        display: flex;
+        margin-top: 10px;
+    }
+    .book-quantity{
+        margin-left: 10%;
+    }
+    .serial-heading{
+        font-size: 30px;
+    }
+    .book-quantity-list li{
+        font-size: 20px;
+        list-style: none;
+    }
+</style>
+
+
+<br>
+<h1 class="">Book: {{ book_item.title }}</h1>
+<hr>
+
+
+<div class="book-detail">
+   
+
+
+    <div class="card mb-3" style="height: 10%;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ book_item.cover.url }}" class="img-fluid rounded-start" width="400">
+            </div>
+
+            <div class="col-md-8">
+
+                <div class="card-body">
+
+                    <h3 class="card-title text-muted">Author: {{ book_item.author }}</h3><hr>
+                    <h4 class="card-text text-muted">Location: {{ book_item.location }}</h4><br>
+
+                    <h3 class="card-text"><small class="text-muted">Total Quantity: {{ book_item.quantity }}</small></h3>
+                    <h3 class="card-text"><small class="text-muted">Borrowed: {{ borrowed_book_amount }}</small></h3>
+
+                    <div class="d-grid gap-3 d-md-flex justify-content-md-end">
+
+                        {% if optional > 0 %}
+                            <button class="btn btn-secondary me-md-2" type="button">Update</button>
+                            <button class="btn btn-secondary" type="button">Delete</button>
+                        {% else %}
+                            <a href="{% url 'core:book_update' book_item.id %}"><button class="btn btn-primary me-md-2" type="button">Update</button></a>
+
+                            <a href="{% url 'core:book_delete' book_item.id %}"><button class="btn btn-danger" type="button">Delete</button></a>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- To get all the book serial numbers available -->
+    <div class="book-quantity">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Book Serial Numbers
+            </div>
+            <!-- To get borrowed books or not -->
+            {% for book in book_amount %}
+                <ul class="list-group list-group-flush">
+                    {% if book in books %}
+                        <li class="list-group-item">Book: {{ book.serial_number }} ( borrowed )</li>
+                    {% else %}
+                        <li class="list-group-item">Book: {{ book.serial_number }} ( available )</li>
+                    {% endif %}
+                </ul>
+            {% endfor %}
+        </div>
+    </div>
+   
+</div>
+
+
+{% endblock %}

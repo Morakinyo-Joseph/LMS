@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style type="text/css">
+    .alert{
+        height: 40px;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+    }
+    .alert svg{
+        width: 20px;
+    }
+    .text{
+        margin-left: 10px;
+    }
+    .borrow-book{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .borrow-book form{
+        flex-direction: column;
+        align-items: center;
+    }
+    .borrow-book input{
+        width: 300px;
+    }
+</style>
+
+
+<h1>Borrow a book</h1>
+    <hr>
+
+
+<div class="borrow-book">
+    {% for message in messages %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <div class="text">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+
+
+
+
+
+    <form action="", method="post">
+        {% csrf_token %}
+
+        <h3>Member: {{ member.name }}</h3>
+        <hr>
+
+        {{ form | crispy }}
+
+        <br>
+        
+        Return Date
+        <br>
+        <input type="date" name="return_date" class="textinput textInput form-control">
+
+        <br>
+        Serial Number
+        <input type="text" name="serial_num" class="textinput textInput form-control">
+        <br>
+
+        <input type="submit", value="Borrow" class="btn btn-success" >
+        <br><br>
+        <a href="{% url 'core:member_detail' member.id %}"><input type="button" value="Go back" class="btn btn-primary"></a>
+
+    </form>
+</div>
+
+{% endblock content %}
